@@ -37,6 +37,7 @@ private:
                 break;
             }
         }
+        m_heap[index] = temp;
     }
 
     // 下沉逻辑：用于弹出堆顶
