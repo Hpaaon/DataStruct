@@ -1,17 +1,19 @@
-template <typename T>
-class PriorityQueue
+// Que4. 优先队列
+#include <iostream>
+using namespace std;
+
+class Pque
 {
 private:
-    T* m_heap; // 动态存储数组
-    int m_capacity; // 总容量
-    int m_size; // 当前元素个数
+    int* m_heap;
+    int m_size;
+    int m_capacity;
 
-    // 动态扩容：当空间不足时，申请两倍空间
     void expand()
     {
         int newCap = (m_capacity == 0) ? 1 : m_capacity * 2;
-        T* newData = new T[newCap];
-        for (int i= 0; i < m_size; i++)
+        int* newData = new int[newCap];
+        for(int i=0; i<m_size; i++)
         {
             newData[i] = m_heap[i];
         }
@@ -20,14 +22,13 @@ private:
         m_capacity = newCap;
     }
 
-    // 上浮逻辑：用于插入元素
     void shiftUp(int index)
     {
-        T temp = m_heap[index];
-        while (index > 0)
+        int temp = m_heap[index];
+        while(index > 0)
         {
             int parent = (index - 1) / 2;
-            if (temp > m_heap[parent])
+            if(temp < m_heap[parent])
             {
                 m_heap[index] = m_heap[parent];
                 index = parent;
@@ -35,15 +36,14 @@ private:
             else
             {
                 break;
-            }            
+            }
         }
         m_heap[index] = temp;
     }
 
-    // 下沉逻辑：用于弹出堆顶
     void shiftDown(int index)
     {
-        T temp = m_heap[index];
+        int temp = m_heap[index];
         int half = m_size / 2;
         while (index < half)
         {
@@ -51,36 +51,30 @@ private:
             int right = left + 1;
             int child = left;
 
-            // 如果右孩子存在且比左孩子大，选右孩子
-            if (right < m_size && m_heap[right] > m_heap[left])
+            if (right < m_size && m_heap[right] < m_heap[left])
             {
                 child = right;
             }
 
-            // 如果暂存值比最大的孩子大，则停止下沉
-            if (temp >= m_heap[child]) break;
+            if(temp <= m_heap[child]) break;
 
             m_heap[index] = m_heap[child];
             index = child;
-        }
+        }   
         m_heap[index] = temp;
+
     }
 
 public:
-    PriorityQueue(int initCap = 10) : m_capacity(initCap), m_size(0)
+    Pque(int initCap = 10) : m_capacity(initCap), m_size(0)
     {
-        m_heap = new T[m_capacity];
+        m_heap = new int[m_capacity];
     }
 
-    ~PriorityQueue()
-    {
-        delete[] m_heap;
-    }
-
-    bool empty() const  { return m_size == 0; }
+    bool empty() const { return m_size == 0; }
     int size() const { return m_size; }
 
-    void push(const T& val)
+    void push(int val)
     {
         if (m_size == m_capacity) expand();
         m_heap[m_size] = val;
@@ -91,15 +85,48 @@ public:
     void pop()
     {
         m_size--;
-        if (m_size > 0)
+        if(m_size > 0)
         {
             m_heap[0] = m_heap[m_size];
             shiftDown(0);
         }
+  
     }
 
-    T top() const
+    int top()
     {
         return m_heap[0];
     }
 };
+
+
+int main()
+{
+    Pque q;
+    int n;
+    cin >> n;
+    for(int i=0; i<n; i++)
+    {
+        int op;
+        cin >> op;
+        switch (op)
+        {
+        case 1:
+            int val;
+            cin >> val;
+            q.push(val);
+            break;
+        
+        case 2:
+            cout << q.top() << endl;
+            break;
+
+        case 3:
+            q.pop();
+
+        default:
+            break;
+        }
+    }
+    return 0;
+}
