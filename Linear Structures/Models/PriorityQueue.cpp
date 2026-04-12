@@ -36,6 +36,7 @@ private:
             {
                 break;
             }
+            m_heap[index] = temp;
         }
     }
 
