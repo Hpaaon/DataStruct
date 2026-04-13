@@ -1,5 +1,17 @@
 # Linear Structures
 
+## Stack 栈 （LIFO）
+
+>栈（Stack）是计算机科学中最基础、最重要的线性数据结构之一。它的核心特性可以概括为一个词：LIFO（Last In, First Out，后进先出）。
+
+### 顺序栈 (Sequential Stack)
+
+>使用连续的内存空间（动态或静态数组）存储。
+
+### 链式栈 (Linked Stack)
+
+>使用链表结构存储。
+
 ## Queue 队列 (FIFO)
 
 >队列是一种限制性线性表，它强制执行“排队”逻辑：数据从一端进入（Rear），从另一端离开（Front）。
