@@ -28,7 +28,7 @@ public:
     {
         Node* temp = m_top;
         m_top = m_top->next;
-        deletr temp;
+        delete temp;
         m_size--;
     }
 
@@ -40,7 +40,7 @@ public:
 
     void clear()
     {
-        while(!empty)
+        while(!empty())
         {
             pop();
         }

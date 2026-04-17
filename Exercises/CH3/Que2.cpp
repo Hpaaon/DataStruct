@@ -1,3 +1,4 @@
+// Que2.后缀表达式求值
 #include <iostream>
 #include <string>
 #include <sstream>
@@ -34,7 +35,7 @@ public:
     {
         Node* temp = m_top;
         m_top = m_top->next;
-        deletr temp;
+        delete temp;
         m_size--;
     }
 
@@ -46,15 +47,64 @@ public:
 
     void clear()
     {
-        while(!empty)
+        while(!empty())
         {
             pop();
         }
     }
 };
 
+void Solution()
+{
+    string line;
+    getline(cin, line);
+    stringstream ss(line);
+    string token;
+    LinkedStack<int> s;
+    while(ss >> token)
+    {
+        if(isdigit(token[0]))
+        {
+            int val = stoi(token);
+            s.push(val);
+        }
+        else
+        {
+            int val1 = s.top();
+            s.pop();
+            int val2 = s.top();
+            s.pop();
+            switch (token[0])
+            {
+            case '+':
+                s.push(val2 + val1);
+                break;
+            
+            case '-':
+                s.push(val2 - val1);
+                break;
+            
+            case '*':
+                s.push(val2 * val1);
+                break;
+            
+            case '/':
+                s.push(val2 / val1);
+                break;
+            
+            default:
+                break;
+            }
+        }
+    }
+    if(!s.empty())
+    {
+        cout << s.top() << endl;
+    }
+}
+
 int main()
 {
-
+    Solution();
     return 0;
 }
